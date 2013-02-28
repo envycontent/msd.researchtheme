@@ -1,0 +1,44 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="msd.researchtheme">
+
+    <include package="plone.app.contentmenu" />
+
+    <interface interface="msd.researchtheme.interfaces.IResearchThemeFolderView" />
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <browser:page
+        for="*"
+        name="researchtheme_view"
+        class=".view.ResearchThemeView"
+        permission="zope2.View"
+        allowed_attributes="linkCaption hasLink hasFullText"
+        />
+
+     <class class="Products.ATContentTypes.interface.folder.IATFolder">
+            <allow interface="msd.researchtheme.interfaces.researchtheme.IResearchThemeFolderView" />
+     </class>
+
+     <browser:page
+         for="msd.researchtheme.interfaces.researchtheme.IResearchThemeFolderView"
+         name="folder_listing"
+         template="templates/researchtheme_folder_listing.pt"
+         permission="zope2.View"
+         />
+
+
+
+
+     <browser:menuItem
+         for="msd.researchtheme.interfaces.researchtheme.IResearchThemeFolderView"
+         menu="plone_displayviews"
+         title="Research Theme Listing"
+         action="@@folder_listing"
+         description="Research Theme Listing"
+         />
+
+
+  
+</configure>

@@ -1,0 +1,115 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      i18n:domain="msd.researchtheme">
+
+<body>
+
+   
+    <metal:listingmacro define-macro="listing">
+        <tal:foldercontents define="
+                            limit_display limit_display|request/limit_display|nothing;
+                            more_url more_url|request/more_url|string:folder_contents;
+                            contentsMethod python:test(here.portal_type=='Topic', here.queryCatalog, here.getFolderContents);
+                            folderContents folderContents|python:contentsMethod(contentFilter);
+                            use_view_action site_properties/typesUseViewActionInListings|python:();
+                            over_limit python: limit_display and len(folderContents) > limit_display;
+                            folderContents python: (over_limit and folderContents[:limit_display]) or folderContents;
+                            show_about python:not isAnon or site_properties.allowAnonymousViewAbout;
+                            ">
+                            
+        <tal:listing condition="folderContents"
+                        
+                     define="toLocalizedTime nocall:here/toLocalizedTime;">
+                       
+            
+         
+			
+
+				<tal:repeat repeat="item folderContents">              
+
+					<tal:block tal:define="
+                                           item_url item/getURL|item/absolute_url;
+                                           item_remoteUrl item/getRemoteUrl;
+                                           item_subject item/Subject;
+                                           item_id item/getId|item/id;
+                                           item_title_or_id item/pretty_title_or_id;
+                                           item_description item/Description;
+                                           item_object item/getObject;
+                                           item_caption item_object/getLinkCaption|nothing;
+                                           item_type item/portal_type;
+                                           item_type_title item/Type;
+                                           item_modified item/ModificationDate;
+                                           item_created item/CreationDate;
+                                           item_description item_object/getHTMLDescription | item/Description;"
+	                                       >
+                <div class="tileItem visualIEFloatFix">
+                     <a href="#"
+                       
+                       tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url+'/');">
+                        <img src="" alt=""
+                             tal:condition="item_object/image_thumb|nothing"
+                             tal:replace="structure python: item_object.tag(scale='thumb', css_class='tileImage')" />
+                    </a>
+
+                    
+                    <h2 class="tileHeadline">
+
+                        <a href="#"
+                           class="summary url"
+                           
+                           tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url+'/');"
+                           tal:content="item_title_or_id">
+                            Item Title
+                        </a>
+
+                    </h2>
+                    <ul tal:condition="item_subject" class="category">
+                                        <li tal:repeat="subject item_subject">
+                                        <span tal:content="subject" />
+                                        </li>
+                                        </ul>
+                    <p class="tileBody">
+                        <span tal:omit-tag="" tal:condition="not:item_description">
+                            &nbsp;
+                        </span>
+                        <span class="description" tal:content="structure item_description">
+                            description
+                        </span>
+                    </p>
+
+                   <p class="tileFooter" tal:condition="not:item_remoteUrl">
+                        <a href=""
+                           tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url+'/');"
+                           tal:content="python:test(item_caption, item_caption, 'Read more ...')"
+                           >
+                        Read More&hellip;
+                        </a>
+                    </p>
+                    <p class="tileFooter" tal:condition="item_remoteUrl">
+                            <a href=""
+                               tal:attributes="href item_remoteUrl;"
+                               tal:content="python:test(item_caption, item_caption, item_remoteUrl)"
+                               >
+                            Read More&hellip;
+                            </a>
+                        </p>
+
+                    <div class="visualClear"><!-- --></div>
+
+                 </div>
+                 </tal:block>
+                 </tal:repeat>
+ 					
+            
+           
+        
+        </tal:listing>
+        
+
+        </tal:foldercontents>
+        </metal:listingmacro>
+    
+    
+
+</body>
+</html>

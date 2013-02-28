@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>
+
+    <metal:content-core fill-slot="content-core">
+        <metal:block use-macro="context/folder_listing/macros/content-core">
+            <!-- we don't want the dl -->
+            <metal:entries fill-slot="entries">
+                <metal:block use-macro="context/folder_listing/macros/entries">
+                    <metal:entry fill-slot="entry">
+                <div class="tileItem visualIEFloatFix"
+                     tal:define="item_object item/getObject;
+                                 item_description item_object/getHTMLDescription;
+                                 item_remoteUrl item/getRemoteUrl;">
+                            <a href="#"
+                                tal:attributes="href python: item_url+'/';">
+                                 <img src="" alt=""
+                                      tal:condition="item_object/image_thumb|nothing"
+                                      tal:replace="structure python: item_object.tag(scale='thumb', css_class='tileImage')" />
+                             </a>
+
+                             <h2 class="tileHeadline"
+                                 metal:define-macro="listitem">
+
+                                 <a href="#"
+                                    class="summary url"
+
+                                    tal:attributes="href python: item_url+'/';"
+                                    tal:content="item_title_or_id">
+                                     Item Title
+                                 </a>
+
+                             </h2>
+
+                             <p class="tileBody">
+                                 <span tal:omit-tag="" tal:condition="not:item_description">
+                                     &nbsp;
+                                 </span>
+                                 <span class="description" tal:content="structure item_description">
+                                     description
+                                 </span>
+                             </p>
+<!--                            
+                              <p class="tileFooter" tal:condition="not:item_remoteUrl">
+                                     <a href=""
+                                        tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url+'/');"
+                                        tal:content="python:test(item_caption, item_caption, 'Read more ...')"
+                                        >
+                                     Read More&hellip;
+                                     </a>
+                                 </p>
+                                 <p class="tileFooter" tal:condition="item_remoteUrl">
+                                         <a href=""
+                                            tal:attributes="href item_remoteUrl;"
+                                            tal:content="python:test(item_caption, item_caption, item_remoteUrl)"
+                                            >
+                                         Read More&hellip;
+                                         </a>
+                                     </p>
+-->
+                     <div class="visualClear"><!-- --></div>
+
+                </div>
+                    </metal:entry>
+                </metal:block>
+            </metal:entries>
+        </metal:block>
+    </metal:content-core>
+
+</body>
+</html>

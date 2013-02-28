@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+ <object name="msd_researchtheme"
+    meta_type="Filesystem Directory View"
+    directory="msd.researchtheme:skins/msd_researchtheme"/>
+ 
+  <skin-path name="*">
+  <layer name="msd_researchtheme"
+     insert-after="custom"/>
+ </skin-path>
+
+</object>

@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+  <head><title></title></head>
+  <body>
+
+	
+	      <metal:css-macro define-macro="css">
+
+	        <style> 
+	           iframe.kupu-editor-iframe {
+			          height:250px;
+			          width:99%;
+			          } 
+	        </style>
+
+	      </metal:css-macro>
+
+	
+    
+    
+    
+        
+  </body>
+
+</html>
