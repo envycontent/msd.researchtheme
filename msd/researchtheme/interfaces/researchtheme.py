@@ -1,8 +1,6 @@
 from zope import schema
 from zope.interface import Interface
 
-from zope.app.container.constraints import contains
-from zope.app.container.constraints import containers
 
 from msd.researchtheme import researchthemeMessageFactory as _
 
